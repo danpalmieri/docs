@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Clubify API",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -75,11 +75,12 @@
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Módulos",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/endpoint/content",
+        "api-reference/endpoint/subscription",
+        "api-reference/endpoint/payment",
+        "api-reference/endpoint/invoice"
       ]
     }
   ],

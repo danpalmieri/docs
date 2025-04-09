@@ -1,0 +1,269 @@
+---
+title: 'Invoice'
+description: 'API para gerenciamento de faturas'
+api: 'GET /api/v1/invoice'
+---
+
+# Invoice
+
+O módulo Invoice fornece endpoints para gerenciar faturas na plataforma Clubify.
+
+## Endpoints
+
+### Listar Faturas
+
+<ParamField query="limit" type="integer">
+  O número máximo de resultados a retornar
+</ParamField>
+
+<ResponseField name="data" type="array">
+  Lista de faturas
+</ResponseField>
+
+<ResponseField name="data[].id" type="integer">
+  ID da fatura
+</ResponseField>
+
+<ResponseField name="data[].user_id" type="integer">
+  ID do usuário
+</ResponseField>
+
+<ResponseField name="data[].payment_id" type="integer">
+  ID do pagamento
+</ResponseField>
+
+<ResponseField name="data[].invoice_number" type="string">
+  Número da fatura
+</ResponseField>
+
+<ResponseField name="data[].amount" type="number">
+  Valor da fatura
+</ResponseField>
+
+<ResponseField name="data[].currency" type="string">
+  Moeda da fatura
+</ResponseField>
+
+<ResponseField name="data[].status" type="string">
+  Status da fatura (draft, issued, paid, canceled)
+</ResponseField>
+
+<ResponseField name="data[].issue_date" type="string">
+  Data de emissão da fatura
+</ResponseField>
+
+<ResponseField name="data[].due_date" type="string">
+  Data de vencimento da fatura
+</ResponseField>
+
+<ResponseField name="data[].created_at" type="string">
+  Data de criação da fatura
+</ResponseField>
+
+<ResponseField name="data[].updated_at" type="string">
+  Data de atualização da fatura
+</ResponseField>
+
+### Obter Fatura
+
+<ParamField path="id" type="integer">
+  ID da fatura a ser obtida
+</ParamField>
+
+<ResponseField name="data" type="object">
+  Dados da fatura
+</ResponseField>
+
+<ResponseField name="data.id" type="integer">
+  ID da fatura
+</ResponseField>
+
+<ResponseField name="data.user_id" type="integer">
+  ID do usuário
+</ResponseField>
+
+<ResponseField name="data.payment_id" type="integer">
+  ID do pagamento
+</ResponseField>
+
+<ResponseField name="data.invoice_number" type="string">
+  Número da fatura
+</ResponseField>
+
+<ResponseField name="data.amount" type="number">
+  Valor da fatura
+</ResponseField>
+
+<ResponseField name="data.currency" type="string">
+  Moeda da fatura
+</ResponseField>
+
+<ResponseField name="data.status" type="string">
+  Status da fatura (draft, issued, paid, canceled)
+</ResponseField>
+
+<ResponseField name="data.issue_date" type="string">
+  Data de emissão da fatura
+</ResponseField>
+
+<ResponseField name="data.due_date" type="string">
+  Data de vencimento da fatura
+</ResponseField>
+
+<ResponseField name="data.created_at" type="string">
+  Data de criação da fatura
+</ResponseField>
+
+<ResponseField name="data.updated_at" type="string">
+  Data de atualização da fatura
+</ResponseField>
+
+### Criar Fatura
+
+<ParamField body="user_id" type="integer" required>
+  ID do usuário
+</ParamField>
+
+<ParamField body="payment_id" type="integer" required>
+  ID do pagamento
+</ParamField>
+
+<ParamField body="invoice_number" type="string" required>
+  Número da fatura
+</ParamField>
+
+<ParamField body="amount" type="number" required>
+  Valor da fatura
+</ParamField>
+
+<ParamField body="currency" type="string" required>
+  Moeda da fatura
+</ParamField>
+
+<ParamField body="issue_date" type="string">
+  Data de emissão da fatura
+</ParamField>
+
+<ParamField body="due_date" type="string">
+  Data de vencimento da fatura
+</ParamField>
+
+<ResponseField name="data" type="object">
+  Dados da fatura criada
+</ResponseField>
+
+<ResponseField name="data.id" type="integer">
+  ID da fatura
+</ResponseField>
+
+<ResponseField name="data.user_id" type="integer">
+  ID do usuário
+</ResponseField>
+
+<ResponseField name="data.payment_id" type="integer">
+  ID do pagamento
+</ResponseField>
+
+<ResponseField name="data.invoice_number" type="string">
+  Número da fatura
+</ResponseField>
+
+<ResponseField name="data.amount" type="number">
+  Valor da fatura
+</ResponseField>
+
+<ResponseField name="data.currency" type="string">
+  Moeda da fatura
+</ResponseField>
+
+<ResponseField name="data.status" type="string">
+  Status da fatura (draft, issued, paid, canceled)
+</ResponseField>
+
+<ResponseField name="data.issue_date" type="string">
+  Data de emissão da fatura
+</ResponseField>
+
+<ResponseField name="data.due_date" type="string">
+  Data de vencimento da fatura
+</ResponseField>
+
+<ResponseField name="data.created_at" type="string">
+  Data de criação da fatura
+</ResponseField>
+
+<ResponseField name="data.updated_at" type="string">
+  Data de atualização da fatura
+</ResponseField>
+
+### Atualizar Fatura
+
+<ParamField path="id" type="integer">
+  ID da fatura a ser atualizada
+</ParamField>
+
+<ParamField body="status" type="string">
+  Status da fatura (draft, issued, paid, canceled)
+</ParamField>
+
+<ParamField body="due_date" type="string">
+  Data de vencimento da fatura
+</ParamField>
+
+<ResponseField name="data" type="object">
+  Dados da fatura atualizada
+</ResponseField>
+
+<ResponseField name="data.id" type="integer">
+  ID da fatura
+</ResponseField>
+
+<ResponseField name="data.user_id" type="integer">
+  ID do usuário
+</ResponseField>
+
+<ResponseField name="data.payment_id" type="integer">
+  ID do pagamento
+</ResponseField>
+
+<ResponseField name="data.invoice_number" type="string">
+  Número da fatura
+</ResponseField>
+
+<ResponseField name="data.amount" type="number">
+  Valor da fatura
+</ResponseField>
+
+<ResponseField name="data.currency" type="string">
+  Moeda da fatura
+</ResponseField>
+
+<ResponseField name="data.status" type="string">
+  Status da fatura (draft, issued, paid, canceled)
+</ResponseField>
+
+<ResponseField name="data.issue_date" type="string">
+  Data de emissão da fatura
+</ResponseField>
+
+<ResponseField name="data.due_date" type="string">
+  Data de vencimento da fatura
+</ResponseField>
+
+<ResponseField name="data.created_at" type="string">
+  Data de criação da fatura
+</ResponseField>
+
+<ResponseField name="data.updated_at" type="string">
+  Data de atualização da fatura
+</ResponseField>
+
+### Excluir Fatura
+
+<ParamField path="id" type="integer">
+  ID da fatura a ser excluída
+</ParamField>
+
+<ResponseField name="message" type="string">
+  Mensagem de confirmação
+</ResponseField> 

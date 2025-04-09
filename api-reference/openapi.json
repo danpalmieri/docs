@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "title": "Clubify API",
+    "description": "API para gerenciamento de conteúdo, assinaturas, pagamentos e faturas na plataforma Clubify",
     "license": {
       "name": "MIT"
     },
@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "http://api.clubify.com"
     }
   ],
   "security": [
@@ -19,14 +19,14 @@
     }
   ],
   "paths": {
-    "/plants": {
+    "/api/v1/content": {
       "get": {
-        "description": "Returns all plants from the system that the user has access to",
+        "description": "Retorna todos os conteúdos do sistema que o usuário tem acesso",
         "parameters": [
           {
             "name": "limit",
             "in": "query",
-            "description": "The maximum number of results to return",
+            "description": "O número máximo de resultados a retornar",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -35,20 +35,20 @@
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Resposta de conteúdo",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Plant"
+                    "$ref": "#/components/schemas/Content"
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "Unexpected error",
+            "description": "Erro inesperado",
             "content": {
               "application/json": {
                 "schema": {
@@ -60,13 +60,13 @@
         }
       },
       "post": {
-        "description": "Creates a new plant in the store",
+        "description": "Cria um novo conteúdo no sistema",
         "requestBody": {
-          "description": "Plant to add to the store",
+          "description": "Conteúdo a ser adicionado",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/NewContent"
               }
             }
           },
@@ -74,17 +74,17 @@
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "Resposta de conteúdo",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/Content"
                 }
               }
             }
           },
           "400": {
-            "description": "unexpected error",
+            "description": "Erro inesperado",
             "content": {
               "application/json": {
                 "schema": {
@@ -96,14 +96,99 @@
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+    "/api/v1/content/{id}": {
+      "get": {
+        "description": "Retorna um conteúdo específico com base no ID fornecido",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of plant to delete",
+            "description": "ID do conteúdo a ser obtido",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resposta de conteúdo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Content"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Atualiza um conteúdo específico com base no ID fornecido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do conteúdo a ser atualizado",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Conteúdo a ser atualizado",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateContent"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Resposta de conteúdo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Content"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Exclui um conteúdo específico com base no ID fornecido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do conteúdo a ser excluído",
             "required": true,
             "schema": {
               "type": "integer",
@@ -113,11 +198,596 @@
         ],
         "responses": {
           "204": {
-            "description": "Plant deleted",
+            "description": "Conteúdo excluído",
             "content": {}
           },
           "400": {
-            "description": "unexpected error",
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/subscription": {
+      "get": {
+        "description": "Retorna todas as assinaturas do sistema que o usuário tem acesso",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "O número máximo de resultados a retornar",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resposta de assinatura",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subscription"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Cria uma nova assinatura no sistema",
+        "requestBody": {
+          "description": "Assinatura a ser adicionada",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewSubscription"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Resposta de assinatura",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscription"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/subscription/{id}": {
+      "get": {
+        "description": "Retorna uma assinatura específica com base no ID fornecido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da assinatura a ser obtida",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resposta de assinatura",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscription"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Atualiza uma assinatura específica com base no ID fornecido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da assinatura a ser atualizada",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Assinatura a ser atualizada",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSubscription"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Resposta de assinatura",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscription"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Exclui uma assinatura específica com base no ID fornecido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da assinatura a ser excluída",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Assinatura excluída",
+            "content": {}
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/payment": {
+      "get": {
+        "description": "Retorna todos os pagamentos do sistema que o usuário tem acesso",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "O número máximo de resultados a retornar",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resposta de pagamento",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Payment"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Cria um novo pagamento no sistema",
+        "requestBody": {
+          "description": "Pagamento a ser adicionado",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewPayment"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Resposta de pagamento",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/payment/{id}": {
+      "get": {
+        "description": "Retorna um pagamento específico com base no ID fornecido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do pagamento a ser obtido",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resposta de pagamento",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Atualiza um pagamento específico com base no ID fornecido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do pagamento a ser atualizado",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Pagamento a ser atualizado",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePayment"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Resposta de pagamento",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Exclui um pagamento específico com base no ID fornecido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do pagamento a ser excluído",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Pagamento excluído",
+            "content": {}
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/invoice": {
+      "get": {
+        "description": "Retorna todas as faturas do sistema que o usuário tem acesso",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "O número máximo de resultados a retornar",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resposta de fatura",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Invoice"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Cria uma nova fatura no sistema",
+        "requestBody": {
+          "description": "Fatura a ser adicionada",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewInvoice"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Resposta de fatura",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invoice"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/invoice/{id}": {
+      "get": {
+        "description": "Retorna uma fatura específica com base no ID fornecido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da fatura a ser obtida",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resposta de fatura",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invoice"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Atualiza uma fatura específica com base no ID fornecido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da fatura a ser atualizada",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Fatura a ser atualizada",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateInvoice"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Resposta de fatura",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invoice"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro inesperado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Exclui uma fatura específica com base no ID fornecido",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da fatura a ser excluída",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Fatura excluída",
+            "content": {}
+          },
+          "400": {
+            "description": "Erro inesperado",
             "content": {
               "application/json": {
                 "schema": {
@@ -132,41 +802,394 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
+      "Content": {
         "required": [
-          "name"
+          "id",
+          "title"
         ],
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
+          "id": {
+            "description": "ID do conteúdo",
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "description": "Título do conteúdo",
             "type": "string"
           },
-          "tag": {
-            "description": "Tag to specify the type",
+          "description": {
+            "description": "Descrição do conteúdo",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Data de criação do conteúdo",
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "description": "Data de atualização do conteúdo",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "NewContent": {
+        "required": [
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "description": "Título do conteúdo",
+            "type": "string"
+          },
+          "description": {
+            "description": "Descrição do conteúdo",
             "type": "string"
           }
         }
       },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
+      "UpdateContent": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "description": "Título do conteúdo",
+            "type": "string"
           },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
+          "description": {
+            "description": "Descrição do conteúdo",
+            "type": "string"
           }
-        ]
+        }
+      },
+      "Subscription": {
+        "required": [
+          "id",
+          "user_id",
+          "plan_id",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "ID da assinatura",
+            "type": "integer",
+            "format": "int64"
+          },
+          "user_id": {
+            "description": "ID do usuário",
+            "type": "integer",
+            "format": "int64"
+          },
+          "plan_id": {
+            "description": "ID do plano",
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "description": "Status da assinatura (active, canceled, expired)",
+            "type": "string"
+          },
+          "start_date": {
+            "description": "Data de início da assinatura",
+            "type": "string",
+            "format": "date-time"
+          },
+          "end_date": {
+            "description": "Data de término da assinatura",
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_at": {
+            "description": "Data de criação da assinatura",
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "description": "Data de atualização da assinatura",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "NewSubscription": {
+        "required": [
+          "user_id",
+          "plan_id"
+        ],
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "description": "ID do usuário",
+            "type": "integer",
+            "format": "int64"
+          },
+          "plan_id": {
+            "description": "ID do plano",
+            "type": "integer",
+            "format": "int64"
+          },
+          "start_date": {
+            "description": "Data de início da assinatura",
+            "type": "string",
+            "format": "date-time"
+          },
+          "end_date": {
+            "description": "Data de término da assinatura",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UpdateSubscription": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "description": "Status da assinatura (active, canceled, expired)",
+            "type": "string"
+          },
+          "end_date": {
+            "description": "Data de término da assinatura",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Payment": {
+        "required": [
+          "id",
+          "user_id",
+          "subscription_id",
+          "amount",
+          "currency",
+          "status",
+          "payment_method"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "ID do pagamento",
+            "type": "integer",
+            "format": "int64"
+          },
+          "user_id": {
+            "description": "ID do usuário",
+            "type": "integer",
+            "format": "int64"
+          },
+          "subscription_id": {
+            "description": "ID da assinatura",
+            "type": "integer",
+            "format": "int64"
+          },
+          "amount": {
+            "description": "Valor do pagamento",
+            "type": "number",
+            "format": "float"
+          },
+          "currency": {
+            "description": "Moeda do pagamento",
+            "type": "string"
+          },
+          "status": {
+            "description": "Status do pagamento (pending, completed, failed, refunded)",
+            "type": "string"
+          },
+          "payment_method": {
+            "description": "Método de pagamento",
+            "type": "string"
+          },
+          "payment_date": {
+            "description": "Data do pagamento",
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_at": {
+            "description": "Data de criação do pagamento",
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "description": "Data de atualização do pagamento",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "NewPayment": {
+        "required": [
+          "user_id",
+          "subscription_id",
+          "amount",
+          "currency",
+          "payment_method"
+        ],
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "description": "ID do usuário",
+            "type": "integer",
+            "format": "int64"
+          },
+          "subscription_id": {
+            "description": "ID da assinatura",
+            "type": "integer",
+            "format": "int64"
+          },
+          "amount": {
+            "description": "Valor do pagamento",
+            "type": "number",
+            "format": "float"
+          },
+          "currency": {
+            "description": "Moeda do pagamento",
+            "type": "string"
+          },
+          "payment_method": {
+            "description": "Método de pagamento",
+            "type": "string"
+          },
+          "payment_date": {
+            "description": "Data do pagamento",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UpdatePayment": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "description": "Status do pagamento (pending, completed, failed, refunded)",
+            "type": "string"
+          }
+        }
+      },
+      "Invoice": {
+        "required": [
+          "id",
+          "user_id",
+          "payment_id",
+          "invoice_number",
+          "amount",
+          "currency",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "ID da fatura",
+            "type": "integer",
+            "format": "int64"
+          },
+          "user_id": {
+            "description": "ID do usuário",
+            "type": "integer",
+            "format": "int64"
+          },
+          "payment_id": {
+            "description": "ID do pagamento",
+            "type": "integer",
+            "format": "int64"
+          },
+          "invoice_number": {
+            "description": "Número da fatura",
+            "type": "string"
+          },
+          "amount": {
+            "description": "Valor da fatura",
+            "type": "number",
+            "format": "float"
+          },
+          "currency": {
+            "description": "Moeda da fatura",
+            "type": "string"
+          },
+          "status": {
+            "description": "Status da fatura (draft, issued, paid, canceled)",
+            "type": "string"
+          },
+          "issue_date": {
+            "description": "Data de emissão da fatura",
+            "type": "string",
+            "format": "date-time"
+          },
+          "due_date": {
+            "description": "Data de vencimento da fatura",
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_at": {
+            "description": "Data de criação da fatura",
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "description": "Data de atualização da fatura",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "NewInvoice": {
+        "required": [
+          "user_id",
+          "payment_id",
+          "invoice_number",
+          "amount",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "description": "ID do usuário",
+            "type": "integer",
+            "format": "int64"
+          },
+          "payment_id": {
+            "description": "ID do pagamento",
+            "type": "integer",
+            "format": "int64"
+          },
+          "invoice_number": {
+            "description": "Número da fatura",
+            "type": "string"
+          },
+          "amount": {
+            "description": "Valor da fatura",
+            "type": "number",
+            "format": "float"
+          },
+          "currency": {
+            "description": "Moeda da fatura",
+            "type": "string"
+          },
+          "issue_date": {
+            "description": "Data de emissão da fatura",
+            "type": "string",
+            "format": "date-time"
+          },
+          "due_date": {
+            "description": "Data de vencimento da fatura",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UpdateInvoice": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "description": "Status da fatura (draft, issued, paid, canceled)",
+            "type": "string"
+          },
+          "due_date": {
+            "description": "Data de vencimento da fatura",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
       },
       "Error": {
         "required": [

@@ -1,0 +1,245 @@
+---
+title: 'Payment'
+description: 'API para gerenciamento de pagamentos'
+api: 'GET /api/v1/payment'
+---
+
+# Payment
+
+O módulo Payment fornece endpoints para gerenciar pagamentos na plataforma Clubify.
+
+## Endpoints
+
+### Listar Pagamentos
+
+<ParamField query="limit" type="integer">
+  O número máximo de resultados a retornar
+</ParamField>
+
+<ResponseField name="data" type="array">
+  Lista de pagamentos
+</ResponseField>
+
+<ResponseField name="data[].id" type="integer">
+  ID do pagamento
+</ResponseField>
+
+<ResponseField name="data[].user_id" type="integer">
+  ID do usuário
+</ResponseField>
+
+<ResponseField name="data[].subscription_id" type="integer">
+  ID da assinatura
+</ResponseField>
+
+<ResponseField name="data[].amount" type="number">
+  Valor do pagamento
+</ResponseField>
+
+<ResponseField name="data[].currency" type="string">
+  Moeda do pagamento
+</ResponseField>
+
+<ResponseField name="data[].status" type="string">
+  Status do pagamento (pending, completed, failed, refunded)
+</ResponseField>
+
+<ResponseField name="data[].payment_method" type="string">
+  Método de pagamento
+</ResponseField>
+
+<ResponseField name="data[].payment_date" type="string">
+  Data do pagamento
+</ResponseField>
+
+<ResponseField name="data[].created_at" type="string">
+  Data de criação do pagamento
+</ResponseField>
+
+<ResponseField name="data[].updated_at" type="string">
+  Data de atualização do pagamento
+</ResponseField>
+
+### Obter Pagamento
+
+<ParamField path="id" type="integer">
+  ID do pagamento a ser obtido
+</ParamField>
+
+<ResponseField name="data" type="object">
+  Dados do pagamento
+</ResponseField>
+
+<ResponseField name="data.id" type="integer">
+  ID do pagamento
+</ResponseField>
+
+<ResponseField name="data.user_id" type="integer">
+  ID do usuário
+</ResponseField>
+
+<ResponseField name="data.subscription_id" type="integer">
+  ID da assinatura
+</ResponseField>
+
+<ResponseField name="data.amount" type="number">
+  Valor do pagamento
+</ResponseField>
+
+<ResponseField name="data.currency" type="string">
+  Moeda do pagamento
+</ResponseField>
+
+<ResponseField name="data.status" type="string">
+  Status do pagamento (pending, completed, failed, refunded)
+</ResponseField>
+
+<ResponseField name="data.payment_method" type="string">
+  Método de pagamento
+</ResponseField>
+
+<ResponseField name="data.payment_date" type="string">
+  Data do pagamento
+</ResponseField>
+
+<ResponseField name="data.created_at" type="string">
+  Data de criação do pagamento
+</ResponseField>
+
+<ResponseField name="data.updated_at" type="string">
+  Data de atualização do pagamento
+</ResponseField>
+
+### Criar Pagamento
+
+<ParamField body="user_id" type="integer" required>
+  ID do usuário
+</ParamField>
+
+<ParamField body="subscription_id" type="integer" required>
+  ID da assinatura
+</ParamField>
+
+<ParamField body="amount" type="number" required>
+  Valor do pagamento
+</ParamField>
+
+<ParamField body="currency" type="string" required>
+  Moeda do pagamento
+</ParamField>
+
+<ParamField body="payment_method" type="string" required>
+  Método de pagamento
+</ParamField>
+
+<ParamField body="payment_date" type="string">
+  Data do pagamento
+</ParamField>
+
+<ResponseField name="data" type="object">
+  Dados do pagamento criado
+</ResponseField>
+
+<ResponseField name="data.id" type="integer">
+  ID do pagamento
+</ResponseField>
+
+<ResponseField name="data.user_id" type="integer">
+  ID do usuário
+</ResponseField>
+
+<ResponseField name="data.subscription_id" type="integer">
+  ID da assinatura
+</ResponseField>
+
+<ResponseField name="data.amount" type="number">
+  Valor do pagamento
+</ResponseField>
+
+<ResponseField name="data.currency" type="string">
+  Moeda do pagamento
+</ResponseField>
+
+<ResponseField name="data.status" type="string">
+  Status do pagamento (pending, completed, failed, refunded)
+</ResponseField>
+
+<ResponseField name="data.payment_method" type="string">
+  Método de pagamento
+</ResponseField>
+
+<ResponseField name="data.payment_date" type="string">
+  Data do pagamento
+</ResponseField>
+
+<ResponseField name="data.created_at" type="string">
+  Data de criação do pagamento
+</ResponseField>
+
+<ResponseField name="data.updated_at" type="string">
+  Data de atualização do pagamento
+</ResponseField>
+
+### Atualizar Pagamento
+
+<ParamField path="id" type="integer">
+  ID do pagamento a ser atualizado
+</ParamField>
+
+<ParamField body="status" type="string">
+  Status do pagamento (pending, completed, failed, refunded)
+</ParamField>
+
+<ResponseField name="data" type="object">
+  Dados do pagamento atualizado
+</ResponseField>
+
+<ResponseField name="data.id" type="integer">
+  ID do pagamento
+</ResponseField>
+
+<ResponseField name="data.user_id" type="integer">
+  ID do usuário
+</ResponseField>
+
+<ResponseField name="data.subscription_id" type="integer">
+  ID da assinatura
+</ResponseField>
+
+<ResponseField name="data.amount" type="number">
+  Valor do pagamento
+</ResponseField>
+
+<ResponseField name="data.currency" type="string">
+  Moeda do pagamento
+</ResponseField>
+
+<ResponseField name="data.status" type="string">
+  Status do pagamento (pending, completed, failed, refunded)
+</ResponseField>
+
+<ResponseField name="data.payment_method" type="string">
+  Método de pagamento
+</ResponseField>
+
+<ResponseField name="data.payment_date" type="string">
+  Data do pagamento
+</ResponseField>
+
+<ResponseField name="data.created_at" type="string">
+  Data de criação do pagamento
+</ResponseField>
+
+<ResponseField name="data.updated_at" type="string">
+  Data de atualização do pagamento
+</ResponseField>
+
+### Excluir Pagamento
+
+<ParamField path="id" type="integer">
+  ID do pagamento a ser excluído
+</ParamField>
+
+<ResponseField name="message" type="string">
+  Mensagem de confirmação
+</ResponseField> 

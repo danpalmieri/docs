@@ -1,0 +1,153 @@
+---
+title: 'Content'
+description: 'API para gerenciamento de conteúdo'
+api: 'GET /api/v1/content'
+---
+
+# Content
+
+O módulo Content fornece endpoints para gerenciar conteúdo na plataforma Clubify.
+
+## Endpoints
+
+### Listar Conteúdo
+
+<ParamField query="limit" type="integer">
+  O número máximo de resultados a retornar
+</ParamField>
+
+<ResponseField name="data" type="array">
+  Lista de conteúdos
+</ResponseField>
+
+<ResponseField name="data[].id" type="integer">
+  ID do conteúdo
+</ResponseField>
+
+<ResponseField name="data[].title" type="string">
+  Título do conteúdo
+</ResponseField>
+
+<ResponseField name="data[].description" type="string">
+  Descrição do conteúdo
+</ResponseField>
+
+<ResponseField name="data[].created_at" type="string">
+  Data de criação do conteúdo
+</ResponseField>
+
+<ResponseField name="data[].updated_at" type="string">
+  Data de atualização do conteúdo
+</ResponseField>
+
+### Obter Conteúdo
+
+<ParamField path="id" type="integer">
+  ID do conteúdo a ser obtido
+</ParamField>
+
+<ResponseField name="data" type="object">
+  Dados do conteúdo
+</ResponseField>
+
+<ResponseField name="data.id" type="integer">
+  ID do conteúdo
+</ResponseField>
+
+<ResponseField name="data.title" type="string">
+  Título do conteúdo
+</ResponseField>
+
+<ResponseField name="data.description" type="string">
+  Descrição do conteúdo
+</ResponseField>
+
+<ResponseField name="data.created_at" type="string">
+  Data de criação do conteúdo
+</ResponseField>
+
+<ResponseField name="data.updated_at" type="string">
+  Data de atualização do conteúdo
+</ResponseField>
+
+### Criar Conteúdo
+
+<ParamField body="title" type="string" required>
+  Título do conteúdo
+</ParamField>
+
+<ParamField body="description" type="string">
+  Descrição do conteúdo
+</ParamField>
+
+<ResponseField name="data" type="object">
+  Dados do conteúdo criado
+</ResponseField>
+
+<ResponseField name="data.id" type="integer">
+  ID do conteúdo
+</ResponseField>
+
+<ResponseField name="data.title" type="string">
+  Título do conteúdo
+</ResponseField>
+
+<ResponseField name="data.description" type="string">
+  Descrição do conteúdo
+</ResponseField>
+
+<ResponseField name="data.created_at" type="string">
+  Data de criação do conteúdo
+</ResponseField>
+
+<ResponseField name="data.updated_at" type="string">
+  Data de atualização do conteúdo
+</ResponseField>
+
+### Atualizar Conteúdo
+
+<ParamField path="id" type="integer">
+  ID do conteúdo a ser atualizado
+</ParamField>
+
+<ParamField body="title" type="string">
+  Título do conteúdo
+</ParamField>
+
+<ParamField body="description" type="string">
+  Descrição do conteúdo
+</ParamField>
+
+<ResponseField name="data" type="object">
+  Dados do conteúdo atualizado
+</ResponseField>
+
+<ResponseField name="data.id" type="integer">
+  ID do conteúdo
+</ResponseField>
+
+<ResponseField name="data.title" type="string">
+  Título do conteúdo
+</ResponseField>
+
+<ResponseField name="data.description" type="string">
+  Descrição do conteúdo
+</ResponseField>
+
+<ResponseField name="data.created_at" type="string">
+  Data de criação do conteúdo
+</ResponseField>
+
+<ResponseField name="data.updated_at" type="string">
+  Data de atualização do conteúdo
+</ResponseField>
+
+### Excluir Conteúdo
+
+<ParamField path="id" type="integer">
+  ID do conteúdo a ser excluído
+</ParamField>
+
+<ResponseField name="message" type="string">
+  Mensagem de confirmação
+</ResponseField> 

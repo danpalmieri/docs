@@ -1,0 +1,209 @@
+---
+title: 'Subscription'
+description: 'API para gerenciamento de assinaturas'
+api: 'GET /api/v1/subscription'
+---
+
+# Subscription
+
+O módulo Subscription fornece endpoints para gerenciar assinaturas na plataforma Clubify.
+
+## Endpoints
+
+### Listar Assinaturas
+
+<ParamField query="limit" type="integer">
+  O número máximo de resultados a retornar
+</ParamField>
+
+<ResponseField name="data" type="array">
+  Lista de assinaturas
+</ResponseField>
+
+<ResponseField name="data[].id" type="integer">
+  ID da assinatura
+</ResponseField>
+
+<ResponseField name="data[].user_id" type="integer">
+  ID do usuário
+</ResponseField>
+
+<ResponseField name="data[].plan_id" type="integer">
+  ID do plano
+</ResponseField>
+
+<ResponseField name="data[].status" type="string">
+  Status da assinatura (active, canceled, expired)
+</ResponseField>
+
+<ResponseField name="data[].start_date" type="string">
+  Data de início da assinatura
+</ResponseField>
+
+<ResponseField name="data[].end_date" type="string">
+  Data de término da assinatura
+</ResponseField>
+
+<ResponseField name="data[].created_at" type="string">
+  Data de criação da assinatura
+</ResponseField>
+
+<ResponseField name="data[].updated_at" type="string">
+  Data de atualização da assinatura
+</ResponseField>
+
+### Obter Assinatura
+
+<ParamField path="id" type="integer">
+  ID da assinatura a ser obtida
+</ParamField>
+
+<ResponseField name="data" type="object">
+  Dados da assinatura
+</ResponseField>
+
+<ResponseField name="data.id" type="integer">
+  ID da assinatura
+</ResponseField>
+
+<ResponseField name="data.user_id" type="integer">
+  ID do usuário
+</ResponseField>
+
+<ResponseField name="data.plan_id" type="integer">
+  ID do plano
+</ResponseField>
+
+<ResponseField name="data.status" type="string">
+  Status da assinatura (active, canceled, expired)
+</ResponseField>
+
+<ResponseField name="data.start_date" type="string">
+  Data de início da assinatura
+</ResponseField>
+
+<ResponseField name="data.end_date" type="string">
+  Data de término da assinatura
+</ResponseField>
+
+<ResponseField name="data.created_at" type="string">
+  Data de criação da assinatura
+</ResponseField>
+
+<ResponseField name="data.updated_at" type="string">
+  Data de atualização da assinatura
+</ResponseField>
+
+### Criar Assinatura
+
+<ParamField body="user_id" type="integer" required>
+  ID do usuário
+</ParamField>
+
+<ParamField body="plan_id" type="integer" required>
+  ID do plano
+</ParamField>
+
+<ParamField body="start_date" type="string">
+  Data de início da assinatura
+</ParamField>
+
+<ParamField body="end_date" type="string">
+  Data de término da assinatura
+</ParamField>
+
+<ResponseField name="data" type="object">
+  Dados da assinatura criada
+</ResponseField>
+
+<ResponseField name="data.id" type="integer">
+  ID da assinatura
+</ResponseField>
+
+<ResponseField name="data.user_id" type="integer">
+  ID do usuário
+</ResponseField>
+
+<ResponseField name="data.plan_id" type="integer">
+  ID do plano
+</ResponseField>
+
+<ResponseField name="data.status" type="string">
+  Status da assinatura (active, canceled, expired)
+</ResponseField>
+
+<ResponseField name="data.start_date" type="string">
+  Data de início da assinatura
+</ResponseField>
+
+<ResponseField name="data.end_date" type="string">
+  Data de término da assinatura
+</ResponseField>
+
+<ResponseField name="data.created_at" type="string">
+  Data de criação da assinatura
+</ResponseField>
+
+<ResponseField name="data.updated_at" type="string">
+  Data de atualização da assinatura
+</ResponseField>
+
+### Atualizar Assinatura
+
+<ParamField path="id" type="integer">
+  ID da assinatura a ser atualizada
+</ParamField>
+
+<ParamField body="status" type="string">
+  Status da assinatura (active, canceled, expired)
+</ParamField>
+
+<ParamField body="end_date" type="string">
+  Data de término da assinatura
+</ParamField>
+
+<ResponseField name="data" type="object">
+  Dados da assinatura atualizada
+</ResponseField>
+
+<ResponseField name="data.id" type="integer">
+  ID da assinatura
+</ResponseField>
+
+<ResponseField name="data.user_id" type="integer">
+  ID do usuário
+</ResponseField>
+
+<ResponseField name="data.plan_id" type="integer">
+  ID do plano
+</ResponseField>
+
+<ResponseField name="data.status" type="string">
+  Status da assinatura (active, canceled, expired)
+</ResponseField>
+
+<ResponseField name="data.start_date" type="string">
+  Data de início da assinatura
+</ResponseField>
+
+<ResponseField name="data.end_date" type="string">
+  Data de término da assinatura
+</ResponseField>
+
+<ResponseField name="data.created_at" type="string">
+  Data de criação da assinatura
+</ResponseField>
+
+<ResponseField name="data.updated_at" type="string">
+  Data de atualização da assinatura
+</ResponseField>
+
+### Excluir Assinatura
+
+<ParamField path="id" type="integer">
+  ID da assinatura a ser excluída
+</ParamField>
+
+<ResponseField name="message" type="string">
+  Mensagem de confirmação
+</ResponseField> 
